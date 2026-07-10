@@ -897,6 +897,22 @@ textarea {
   min-height: 100px;
 }
 
+/* ---------- Mapa de Localizacao ---------- */
+
+.contato__map-wrapper {
+  margin-top: 48px;
+  width: 100%;
+}
+
+.contato__map {
+  width: 100%;
+  height: 350px;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  display: block;
+}
+
 /* ---------- Footer ---------- */
 
 .footer {

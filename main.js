@@ -116,6 +116,6 @@ document.getElementById('contatoForm').addEventListener('submit', function(e) {
   waMsg += `*Área:* ${assuntoText}\n`;
   waMsg += `*Mensagem:* ${mensagem}`;
 
-  const waUrl = `https://wa.me/5551999990000?text=${encodeURIComponent(waMsg)}`;
+  const waUrl = `https://wa.me/5551999422266?text=${encodeURIComponent(waMsg)}`;
   window.open(waUrl, '_blank', 'noopener,noreferrer');
 });
