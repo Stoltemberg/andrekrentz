@@ -117,5 +117,16 @@ document.getElementById('contatoForm').addEventListener('submit', function(e) {
   waMsg += `*Mensagem:* ${mensagem}`;
 
   const waUrl = `https://wa.me/5551999422266?text=${encodeURIComponent(waMsg)}`;
+  window.dispatchEvent(new CustomEvent('lead:cta', {
+    detail: { channel: 'whatsapp', label: 'Enviar via WhatsApp', href: waUrl }
+  }));
   window.open(waUrl, '_blank', 'noopener,noreferrer');
+});
+
+document.addEventListener('click', (event) => {
+  const cta = event.target.closest('a[data-lead-channel]');
+  if (!cta) return;
+  window.dispatchEvent(new CustomEvent('lead:cta', {
+    detail: { channel: cta.dataset.leadChannel, label: cta.textContent.trim(), href: cta.href }
+  }));
 });
