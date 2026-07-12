@@ -11,8 +11,16 @@ $js = Get-Content -Raw -Encoding utf8 "$PSScriptRoot/../main.js"
   'data-lead-channel="whatsapp"',
   'data-lead-channel="phone"',
   'data-lead-channel="map"'
+  'Conversar sobre meu caso',
+  'class="hero__proof"',
+  'class="practice-index"',
+  'class="authority-band"'
 ) | ForEach-Object {
   if ($html -notmatch [regex]::Escape($_)) { throw "Missing: $_" }
+}
+
+if ($html -match '>Fale Conosco<') {
+  throw 'Generic primary CTA remains'
 }
 
 if ($html -match 'https://andrekrentz\.com\.br/') { throw 'Outdated canonical remains' }
