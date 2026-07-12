@@ -270,10 +270,6 @@ textarea {
   color: var(--white);
 }
 
-.hero__title-accent {
-  color: var(--amber);
-}
-
 .hero__summary {
   font-size: 1.1rem;
   line-height: 1.7;
@@ -325,11 +321,6 @@ textarea {
   padding: 16px 22px;
   border-radius: 2px;
   text-align: center;
-}
-
-@keyframes badgePulse {
-  0%, 100% { box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12); }
-  50%      { box-shadow: 0 8px 40px rgba(212, 160, 23, 0.3); }
 }
 
 .hero__badge-number {
@@ -1040,8 +1031,17 @@ textarea {
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-  transition: transform var(--transition), box-shadow var(--transition);
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--transition), visibility var(--transition), transform var(--transition), box-shadow var(--transition);
   animation: waPulse 2.5s ease-in-out infinite;
+}
+
+.whatsapp-float--hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(16px);
 }
 
 @keyframes waPulse {

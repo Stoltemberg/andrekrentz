@@ -2,6 +2,7 @@ $ErrorActionPreference = 'Stop'
 
 $html = Get-Content -Raw -Encoding utf8 "$PSScriptRoot/../index.html"
 $js = Get-Content -Raw -Encoding utf8 "$PSScriptRoot/../main.js"
+$css = Get-Content -Raw -Encoding utf8 "$PSScriptRoot/../style.css"
 
 @(
   'https://andrekrentzadvogado.com.br/',
@@ -26,3 +27,22 @@ if ($html -match '>Fale Conosco<') {
 if ($html -match 'https://andrekrentz\.com\.br/') { throw 'Outdated canonical remains' }
 if ($js -notmatch "CustomEvent\('lead:cta'") { throw 'CTA event missing' }
 if ($js -notmatch 'channel: .whatsapp.') { throw 'Form telemetry missing' }
+
+@(
+  'IntersectionObserver',
+  '.footer',
+  '.whatsapp-float',
+  'whatsapp-float--hidden'
+) | ForEach-Object {
+  if ($js -notmatch [regex]::Escape($_)) { throw "Floating CTA guard missing: $_" }
+}
+
+@(
+  '.whatsapp-float--hidden',
+  'opacity: 0',
+  'visibility: hidden',
+  'pointer-events: none',
+  'transform: translateY(16px)'
+) | ForEach-Object {
+  if ($css -notmatch [regex]::Escape($_)) { throw "Floating CTA hidden state missing: $_" }
+}

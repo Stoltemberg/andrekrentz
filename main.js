@@ -60,6 +60,32 @@ if(backToTop){
   });
 }
 
+/* ============ Keep floating WhatsApp CTA clear of footer ============ */
+const floatingWhatsapp = document.querySelector('.whatsapp-float');
+const footer = document.querySelector('.footer');
+
+if (floatingWhatsapp && footer) {
+  const setFloatingWhatsappHidden = (hidden) => {
+    floatingWhatsapp.classList.toggle('whatsapp-float--hidden', hidden);
+    floatingWhatsapp.setAttribute('aria-hidden', String(hidden));
+  };
+
+  if ('IntersectionObserver' in window) {
+    const footerObserver = new IntersectionObserver(([entry]) => {
+      setFloatingWhatsappHidden(entry.isIntersecting);
+    });
+    footerObserver.observe(footer);
+  } else {
+    const keepFloatingWhatsappClear = () => {
+      const footerBounds = footer.getBoundingClientRect();
+      setFloatingWhatsappHidden(footerBounds.top < window.innerHeight && footerBounds.bottom > 0);
+    };
+    keepFloatingWhatsappClear();
+    window.addEventListener('scroll', keepFloatingWhatsappClear, { passive: true });
+    window.addEventListener('resize', keepFloatingWhatsappClear);
+  }
+}
+
 /* ============ Parallax hero photo ============ */
 const heroPhoto=document.querySelector('.hero__photo');
 if(heroPhoto){window.addEventListener('scroll',()=>{const s=window.scrollY;if(s<window.innerHeight){heroPhoto.style.transform=`translateY(${s*0.08}px)`;}},{passive:true});}
