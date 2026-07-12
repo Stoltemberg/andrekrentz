@@ -26,6 +26,7 @@ if ($html -match '>Fale Conosco<') {
 
 if ($html -match 'https://andrekrentz\.com\.br/') { throw 'Outdated canonical remains' }
 if ($js -notmatch "CustomEvent\('lead:cta'") { throw 'CTA event missing' }
+if ([regex]::Matches($html, '<main(?:\s|>)').Count -ne 1 -or [regex]::Matches($html, '</main>').Count -ne 1) { throw 'Expected exactly one main landmark' }
 if ($js -notmatch 'channel: .whatsapp.') { throw 'Form telemetry missing' }
 
 @(
