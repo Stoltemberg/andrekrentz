@@ -29,6 +29,7 @@ if ($js -notmatch "CustomEvent\('lead:cta'") { throw 'CTA event missing' }
 if ([regex]::Matches($html, '<main(?:\s|>)').Count -ne 1 -or [regex]::Matches($html, '</main>').Count -ne 1) { throw 'Expected exactly one main landmark' }
 $main = [regex]::Match($html, '(?s)<main(?:\s[^>]*)?>(.*?)</main>')
 if (-not $main.Success -or $main.Groups[1].Value -notmatch 'class="hero' -or $main.Groups[1].Value -notmatch '<h1') { throw 'Main must contain the hero and primary heading' }
+if ($html -notmatch '<h1[^>]*>Andr' + [char]0x00e9 + ' Krentz Advocacia</h1>') { throw 'Hero H1 must foreground Andre Krentz Advocacia' }
 if ($html -notmatch '(?s)</main>\s*<footer') { throw 'Main must close immediately before the footer' }
 if ($js -notmatch 'channel: .whatsapp.') { throw 'Form telemetry missing' }
 
